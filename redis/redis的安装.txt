@@ -1,4 +1,4 @@
-Redis单机版的安装
+一、Redis单机版的安装
 
 1、安装gcc的编译环境
   yum install gcc-c++
@@ -19,3 +19,33 @@ Redis单机版的安装
   redis-cli -p【端口】 -h ip地址 <-c>连接集群时使用此参数
   默认端口：6379 默认ip：localhost（127.0.0.1）
   客户端工具：RedisDesktopManager(只能连接单机版的redis，不能连接集群)
+
+
+二、Redis集群版的安装
+架构细节:
+(1)所有的redis节点彼此互联(PING-PONG机制),内部使用二进制协议优化传输速度和带宽.
+(2)节点的fail是通过集群中超过半数的节点检测失效时才生效.
+(3)客户端与redis节点直连,不需要中间proxy层.客户端不需要连接集群所有节点,连接集群中任何一个可用节点即可
+(4)redis-cluster把所有的物理节点映射到[0-16383]slot上,cluster 负责维护node<->slot<->value
+   Redis 集群中内置了 16384 个哈希槽，当需要在 Redis 集群中放置一个 key-value 时，redis 先对
+   key 使用 crc16 算法算出一个结果，然后把结果对 16384 求余数，这样每个 key 都会对应一个编号在
+    0-16383 之间的哈希槽，redis 会根据节点数量大致均等的将哈希槽映射到不同的节点
+
+
+    集群中应该至少有三个节点，每个节点有一备份节点。需要6台服务器。
+    搭建伪分布式，需要6个redis实例。
+    搭建集群的步骤：
+    第一步：创建6个redis实例指定端口从7001到7006
+    第二步：修改redis.conf 打开Cluster-enable yes前面的注释。
+    第三步：需要一个ruby脚本。在redis源码文件夹下的src目录下。redis-trib.rb
+    第四步：把redis-trib.rb文件复制到到redis-cluster目录下。
+    第五步：执行ruby脚本之前，需要安装ruby环境。
+          1、yum install ruby
+          2、yum install rubygems
+          3、安装redis-trib.rb运行依赖的ruby的包。
+          [root@bogon ~]# gem install redis-3.0.0.gem
+    第六步：启动所有的redis实例。
+    第七步：使用redis-trib.rb创建集群。
+     ./redis-trib.rb create --replicas 1 192.168.25.153:7001 192.168.25.153:7002 192.168.25.153:7003 192.168.25.153:7004 192.168.25.153:7005                            192.168.25.153:7006
+
+    使用客户端连接集群： redis01/redis-cli -p 7001 -c
