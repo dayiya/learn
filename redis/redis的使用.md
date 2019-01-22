@@ -1,11 +1,11 @@
-## 1、redis的简介
+# 1、redis的简介
 Redis 是一个开源的使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库
 
-## 2、String类型
-### 2.1 Redis 的 Key
+# 2、String类型
+## 2.1 Redis 的 Key
 Redis 的 key 是字符串类型，但是 key 中不能包括边界字符，由于 key 不是 binary safe的字符串，所以像"my key"和"mykey\n"这样包含空格和换行的 key 是不允许的。
 
-#### 2.1.1 key 相关指令介绍
+### 2.1.1 key 相关指令介绍
 
 1. **exits key** 检测指定 key 是否存在，返回 1 表示存在，0 不存在
 2. **del key1 key2 ...... keyN** 删除给定 key,返回删除 key 的数目，0 表示给定 key 都不存在
@@ -20,11 +20,11 @@ Redis 的 key 是字符串类型，但是 key 中不能包括边界字符，由�
 表示成功，0 失败。
 11. **move key db-index** 将 key 从当前数据库移动到指定数据库。返回 1 表示成功。0 表示 key不存在或者已经在指定数据库中。
 
-### 2.2. Redis 的 vaule
+## 2.2 Redis 的 vaule
 
 redis 提供五种数据类型：string,hash,list,set 及 sorted set。
 
-#### 2.2.1. string 类型
+### 2.2.1 string 类型
 
 string 是最基本的类型，而且 string 类型是二进制安全的。意思是 redis 的 string 可以包含任何数据。比如 jpg 图片或者序列化的对象。从内部实现来看其实 string 可以看作 byte数组，最大上限是 1G 字节。
 
@@ -45,5 +45,5 @@ string 是最基本的类型，而且 string 类型是二进制安全的。意�
 
 <img alt="redis的使用-e2ffab53.png" src="assets/redis的使用-e2ffab53.png" width="" height="" >
 
-#### 2.2.2 Hash类型
+### 2.2.2 Hash类型
 TODO
