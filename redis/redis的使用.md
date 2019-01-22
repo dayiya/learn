@@ -1,9 +1,15 @@
 ##1、redis的简介
+
 * Redis 是一个开源的使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库
+
 ##2、String类型
+
 ###2.1. Redis 的 Key
+
 * Redis 的 key 是字符串类型，但是 key 中不能包括边界字符，由于 key 不是 binary safe的字符串，所以像"my key"和"mykey\n"这样包含空格和换行的 key 是不允许的。
+
 ####2.1.1. key 相关指令介绍
+
 1. **exits key** 检测指定 key 是否存在，返回 1 表示存在，0 不存在
 2. **del key1 key2 ...... keyN** 删除给定 key,返回删除 key 的数目，0 表示给定 key 都不存在
 3. **type key** 返回给定 key 值的类型。返回 none 表示 key 不存在,string 字符类型，list 链表类型 set 无序集合类型......
@@ -15,13 +21,15 @@
 9. **ttl key** 返回设置过过期时间 key 的剩余过期秒数。-1 表示 key 不存在或者未设置过期时间。
 10. **select db-index** 通过索引选择数据库，默认连接的数据库是 0,默认数据库数是 16 个。返回 1
 表示成功，0 失败。
-11. **move key db-index** 将 key 从当前数据库移动到指定数据库。返回 1 表示成功。0 表示 key
-不存在或者已经在指定数据库中。
+11. **move key db-index** 将 key 从当前数据库移动到指定数据库。返回 1 表示成功。0 表示 key不存在或者已经在指定数据库中。
+
 ###2.2. Redis 的 vaule
+
 redis 提供五种数据类型：string,hash,list,set 及 sorted set。
+
 ####2.2.1. string 类型
-string 是最基本的类型，而且 string 类型是二进制安全的。意思是 redis 的 string 可以
-包含任何数据。比如 jpg 图片或者序列化的对象。从内部实现来看其实 string 可以看作 byte数组，最大上限是 1G 字节。
+
+string 是最基本的类型，而且 string 类型是二进制安全的。意思是 redis 的 string 可以包含任何数据。比如 jpg 图片或者序列化的对象。从内部实现来看其实 string 可以看作 byte数组，最大上限是 1G 字节。
 
 **string 类型数据操作指令简介**
 1. **set key value**：设置 key 对应 string 类型的值，返回 1 表示成功，0 失败。
