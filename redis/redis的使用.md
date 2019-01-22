@@ -62,3 +62,21 @@ hash是一个string类型的field和value的映射表。添加，删除操作都
 9. **hkeys key**：返回hash的所有field。
 10. **hvals key**：返回hash的所有value。
 11. **hgetall**：返回hash的所有filed和value。
+
+### 2.2.3 List类型
+list是一个链表结构，可以理解为一个每个子元素都是string类型的双向链表。主要功能是push、pop、获取一个范围的所有值等。操作中key理解为链表的名字。
+
+**hash类型数据操作指令简介**
+1. **lpush key string**：在key对应的list的头部添加字符串元素，返回1表示成功，0表示key存在且不是list类型。
+2. **rpush key string**：在key对应list的尾部添加字符串元素。
+3. **llen key**：返回key对应的list的长度，如果key不存在返回0，如果key对应类型不是list返回错误。
+4. **lrang key start end**：返回指定区间的元素，下表从0开始，负值表示从后面计算，-1表示倒数第一个元素，key不存在返回空列表。
+5. **ltrim key index value**：截取list中指定区间的元素，成功返回1，key不存在返回错误。
+6. **lset key index value**：设置list中指定下表的元素值，成功返回1，key或者下标不存在返回错误。
+7. **lrem key count value**：从list的头部（count正数）或尾部（count负数）删除一定数量（count）匹配value的元素，返回删除的元素数量。count为0时候删除全部。
+8. **lpop key**：从list的头部删除并返回删除元素。如果key对应的list不存在或者是空返回nil，如果key对应值不是list返回错误。
+9. **rpop key**：从list尾部删除并返回删除元素。
+10. **blpop key1 ... keyN timeout**：从左到右扫描，返回对第一个非空list进行lpop操作并返回。比如 blpop list1 list2 list3 0 ,如果list1不存在，list2，list3 都是非空则对 list2 做 lpop 并返回从 list2 中删除的元素。如果所有的 list 都是空或不存在，则会阻塞 timeout秒，timeout 为 0 表示一直阻塞。当阻塞时，如果有 client 对 key1...keyN 中的任意 key进行 push 操作，则第一在这个 key 上被阻塞的 client 会立即返回。如果超时发生，则返回nil。有点像 unix 的 select 或者 poll。
+11. **brpop**：同blpop，一个是从头部删除，一个是从尾部删除。
+
+### 2.2.3 set类型
