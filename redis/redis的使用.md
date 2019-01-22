@@ -1,9 +1,12 @@
 ## 1、redis的简介
-* Redis 是一个开源的使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库
+Redis 是一个开源的使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库
+
 ## 2、String类型
-### 2.1. Redis 的 Key
-* Redis 的 key 是字符串类型，但是 key 中不能包括边界字符，由于 key 不是 binary safe的字符串，所以像"my key"和"mykey\n"这样包含空格和换行的 key 是不允许的。
-#### 2.1.1. key 相关指令介绍
+### 2.1 Redis 的 Key
+Redis 的 key 是字符串类型，但是 key 中不能包括边界字符，由于 key 不是 binary safe的字符串，所以像"my key"和"mykey\n"这样包含空格和换行的 key 是不允许的。
+
+#### 2.1.1 key 相关指令介绍
+
 1. **exits key** 检测指定 key 是否存在，返回 1 表示存在，0 不存在
 2. **del key1 key2 ...... keyN** 删除给定 key,返回删除 key 的数目，0 表示给定 key 都不存在
 3. **type key** 返回给定 key 值的类型。返回 none 表示 key 不存在,string 字符类型，list 链表类型 set 无序集合类型......
