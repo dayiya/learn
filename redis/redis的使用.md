@@ -46,4 +46,19 @@ string 是最基本的类型，而且 string 类型是二进制安全的。意�
 <img alt="redis的使用-e2ffab53.png" src="assets/redis的使用-e2ffab53.png" width="" height="" >
 
 ### 2.2.2 Hash类型
-TODO
+hash是一个string类型的field和value的映射表。添加，删除操作都是0(1)(平均)。hash特别适合用于存储对象。相对于将对象的每个字段存成单个String类型。将一个对象储存在hash类型中会占用更少的内存，并且可以更方便的存取整个对象。省内存的原因是新建一个hash对象时开始是用zipmap（又称small hash）来存储的。这个zipmap其实并不是hash table，但是zipmap相比正常的hash实现可以节省不少hash本身需要的一些元数据存储开销。尽管zipmap的添加，删除，查找都是0(n)，但是由于一般对象的field数量都不太多。所以用zipmap也是很快的，也就是说添加删除平均还是0(1)。如果field或者value的大小超出一定限制后，redis会在内部自动将zipmap替换成正常的hash实现。这个实现可以在配置文件中指定。
+* hash-max-zipmap-entries 64 #配置字段最多 64 个
+* hash-max-zipmap-value 512 #配置 value 最大为 512 字节
+
+**hash类型数据操作指令简介**
+1. **hset key field value**：设置hash field为指定值，如果key不出在，则创建。
+2. **hget key field**：获取指定的hash field。
+3. **hmget key filed1 ... fieldN**：获取全部指定的hash filed。
+4. **hmset key filed1 value1 ... fileN valueN**：同时设置hash的多个field。
+5. **hincrby key field integer**：将指定的hash filed加上指定的值。成功返回hash filed变更后的值。
+6. **hexists key field**：检测指定field是否存在。
+7. **hdel key field**：删除指定的hash field。
+8. **hlen key**：返回指定的hash的field的数量。
+9. **hkeys key**：返回hash的所有field。
+10. **hvals key**：返回hash的所有value。
+11. **hgetall**：返回hash的所有filed和value。
