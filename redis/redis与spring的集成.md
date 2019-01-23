@@ -192,37 +192,37 @@ public class JedisClientCluster implements JedisClient {
 	<bean id="jedisClientPool" class="com.didoumi.jedis.JedisClientPool"/>
 
   <!-- 集群版的配置 -->
-  	<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
-  		<constructor-arg>
-  			<set>
-  				<bean class="redis.clients.jedis.HostAndPort">
-  					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
-  					<constructor-arg name="port" value="7001"></constructor-arg>
-  				</bean>
-  				<bean class="redis.clients.jedis.HostAndPort">
-  					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
-  					<constructor-arg name="port" value="7002"></constructor-arg>
-  				</bean>
-  				<bean class="redis.clients.jedis.HostAndPort">
-  					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
-  					<constructor-arg name="port" value="7003"></constructor-arg>
-  				</bean>
-  				<bean class="redis.clients.jedis.HostAndPort">
-  					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
-  					<constructor-arg name="port" value="7004"></constructor-arg>
-  				</bean>
-  				<bean class="redis.clients.jedis.HostAndPort">
-  					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
-  					<constructor-arg name="port" value="7005"></constructor-arg>
-  				</bean>
-  				<bean class="redis.clients.jedis.HostAndPort">
-  					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
-  					<constructor-arg name="port" value="7006"></constructor-arg>
-  				</bean>
-  			</set>
-  		</constructor-arg>
-  	</bean>
-  	<bean id="jedisClientCluster" class="com.didoumi.jedis.JedisClientCluster"/>
+	<bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+		<constructor-arg>
+			<set>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
+					<constructor-arg name="port" value="7001"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
+					<constructor-arg name="port" value="7002"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
+					<constructor-arg name="port" value="7003"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
+					<constructor-arg name="port" value="7004"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
+					<constructor-arg name="port" value="7005"></constructor-arg>
+				</bean>
+				<bean class="redis.clients.jedis.HostAndPort">
+					<constructor-arg name="host" value="192.168.1.1"></constructor-arg>
+					<constructor-arg name="port" value="7006"></constructor-arg>
+				</bean>
+			</set>
+		</constructor-arg>
+	</bean>
+	<bean id="jedisClientCluster" class="com.didoumi.jedis.JedisClientCluster"/>
 </beans>
 ```
 ## 1.4 单元测试
