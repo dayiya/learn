@@ -6,12 +6,12 @@
 </properties>
 <dependencyManagement>
   <dependencies>
-      <!-- Redis客户端 -->
-			<dependency>
-				<groupId>redis.clients</groupId>
-				<artifactId>jedis</artifactId>
-				<version>${jedis.version}</version>
-			</dependency>
+    <!-- Redis客户端 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
   </dependencies>
 </dependencyManagement>
 ```
@@ -111,7 +111,7 @@ public class JedisClientPool implements JedisClient {
 
 }
 ```
-### 1.2.2 单机版实现类
+### 1.2.2 redis集群版实现类
 ```java
 package com.didoumi.jedis;
 
