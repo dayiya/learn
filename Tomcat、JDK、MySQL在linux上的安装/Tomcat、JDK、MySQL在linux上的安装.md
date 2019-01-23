@@ -10,16 +10,16 @@
 4. 启动关闭Tomcat
     * 进入tomcat的bin下启动：./startup.sh
     * 进入tomcat的bin下关闭：./shutdown.sh
-<img alt="Tomcat、JDK、MySQL在linux上的安装-62b5ef01.png" src="assets/Tomcat、JDK、MySQL在linux上的安装-62b5ef01.png" width="" height="" >
-<img alt="Tomcat、JDK、MySQL在linux上的安装-8e8e6162.png" src="assets/Tomcat、JDK、MySQL在linux上的安装-8e8e6162.png" width="" height="" >
+    * <img alt="Tomcat、JDK、MySQL在linux上的安装-62b5ef01.png" src="assets/Tomcat、JDK、MySQL在linux上的安装-62b5ef01.png" width="" height="" >
+    * <img alt="Tomcat、JDK、MySQL在linux上的安装-8e8e6162.png" src="assets/Tomcat、JDK、MySQL在linux上的安装-8e8e6162.png" width="" height="" >
 
 ## 1.2 JDK的安装
 * **步骤**
 1. 查看当前Linux系统是否已经安装java；输入 **rpm -qa | grep java**
-<img alt="Tomcat、JDK、MySQL在linux上的安装-2fa13238.png" src="assets/Tomcat、JDK、MySQL在linux上的安装-2fa13238.png" width="" height="" >
+    * <img alt="Tomcat、JDK、MySQL在linux上的安装-2fa13238.png" src="assets/Tomcat、JDK、MySQL在linux上的安装-2fa13238.png" width="" height="" >
 
 2. 卸载两个openJDK   输入rpm -e --nodeps 要卸载的软件
-<img alt="Tomcat、JDK、MySQL在linux上的安装-df8b1b43.png" src="assets/Tomcat、JDK、MySQL在linux上的安装-df8b1b43.png" width="" height="" >
+    * <img alt="Tomcat、JDK、MySQL在linux上的安装-df8b1b43.png" src="assets/Tomcat、JDK、MySQL在linux上的安装-df8b1b43.png" width="" height="" >
 
 3. 上传jdk到linux
 4. 安装jdk运行需要的插件yum install glibc.i686（选做，若不做，安装jdk的时候报缺少什么错就安装什么即可）
