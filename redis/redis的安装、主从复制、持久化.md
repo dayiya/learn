@@ -30,6 +30,7 @@
    **./redis-server**
 
    后端启动：复制redis.conf到redis的安装目录——修改redis.conf（把daemonize no 改为 demonize yes)——启动：
+   <img alt="redis的安装、主从复制、持久化-9cb745eb.png" src="assets/redis的安装、主从复制、持久化-9cb745eb.png" width="" height="" >
 
    **./redis-server redis.conf**
 7. 客户端
