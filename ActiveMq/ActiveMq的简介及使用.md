@@ -318,10 +318,10 @@ public void methodName() {
   //发送消息代码
   jmsTemplate.send(topicDestination, new MessageCreator(){
     @Override
-  	public Message createMessage(Session session) throws JMSException {
-  		TextMessage textMessage = session.createTextMessage("要发送的消息！");
-  		return textMessage;
-  	}
+      public Message createMessage(Session session) throws JMSException {
+        TextMessage textMessage = session.createTextMessage("要发送的消息！");
+      return textMessage;
+    }
   })
 }
 ```
@@ -354,19 +354,18 @@ public void methodName() {
 ```java
 public class ChangeListener implements MessageListener {
 
-	@Override
-	public void onMessage(Message message) {
-		try {
-			TextMessage textMessage = null;
-			if (message instanceof TextMessage) {
-				textMessage = (TextMessage) message;
-				String str = textMessage.getText();
+  @Override
+  public void onMessage(Message message) {
+    try {
+      TextMessage textMessage = null;
+      if (message instanceof TextMessage) {
+        textMessage = (TextMessage) message;
+        String str = textMessage.getText();
         System.out.println(str);//这里打印出：要发送的消息！
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }
 ```
