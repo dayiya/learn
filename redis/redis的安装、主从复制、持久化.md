@@ -54,9 +54,9 @@
 3. 需要一个ruby脚本。在redis源码文件夹下的src目录下。redis-trib.rb。也可直接yum下载。
 4. 把redis-trib.rb文件复制到到redis-cluster目录下。
 5. 执行ruby脚本之前，需要安装ruby环境。
-* yum install ruby
-* yum install rubygems
-* 安装redis-trib.rb运行依赖的ruby的包。
+* **yum install ruby**
+* **yum install rubygems**
+* 安装redis-trib.rb运行依赖的ruby的包。若没有如下的安装包，则执行命令亦可：**gem install redis**
  <img alt="redis的介绍及安装-f0d544f8.png" src="assets/redis的介绍及安装-f0d544f8.png" width="" height="" >
 
 6. 启动所有的redis实例。
