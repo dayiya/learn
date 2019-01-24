@@ -26,7 +26,7 @@ JMS（Java Message Service）定义了五种不同的消息正文格式，以及
 
 # 三、ActiveMQ的安装
 ## 3.1 下载
-进入http://activemq.apache.org/下载ActiveMQ
+进入http://activemq.apache.org/  下载ActiveMQ
 <img alt="ActiveMq的简介及使用-a3d12501.png" src="assets/ActiveMq的简介及使用-a3d12501.png" width="" height="" >
 
 ## 3.2 安装
