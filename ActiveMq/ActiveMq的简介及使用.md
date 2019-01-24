@@ -45,15 +45,15 @@ JMS（Java Message Service）定义了五种不同的消息正文格式，以及
 ### 4.1.1 添加jar包至工程中
 ```html
 <properties>
-  <activemq.version>5.11.2</activemq.version>
+<activemq.version>5.11.2</activemq.version>
 </properties>
 <dependencyManagement>
-	<dependencies>
+  <dependencies>
     <dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-all</artifactId>
-			<version>${activemq.version}</version>
-		</dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-all</artifactId>
+      <version>${activemq.version}</version>
+    </dependency>
   </dependencies>
 </dependencyManagement>
 ```
