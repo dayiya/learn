@@ -15,6 +15,8 @@
 
 # 二、ActiveMQ的消息形式
 
+## 2.1 消息类型
+
 对于消息的传递有两种类型
 
 -   **一种是点对点的**，及一个生产者和一个消费者一一对应；
@@ -27,6 +29,59 @@ JMS（Java Message Service）定义了五种不同的消息正文格式，以及
 -   TextMessage     一个字符串对象
 -   ObjectMessage   一个序列化的Java对象
 -   ByteMessage     一个字节的数据流
+
+## 2.2 消息确认
+&emsp;&emsp;JMS 消息只有在被确认之后，才认为已经被成功地消费了。消息的成功消费通常包含三个阶段：客户接收消息、客户处理消息和消息被确认。<br>
+&emsp;&emsp;在事务性会话中，当一个事务被提交的时候，确认自动发生。在非事务性会话中，消息何时被确认取决于创建会话时的应答模式（acknowledgementmode）。该参数有以下三个可选值：
+-   **Session.AUTO_ACKNOWLEDGE**：当客户成功的从receive方法返回的时候，或者从MessageListener.onMessage 方法成功返回的时候，会话自动确认客户收到的消息。
+-   **Session.CLIENT_ACKNOWLEDGE**：客户通过消息的acknowledge 方法确认消息。需要注意的是，在这种模式中，确认是在会话层上进行：确认一个被消费的消息将自动确认所有已被会话消费的消息。例如，如果一个消息消费者消费了10 个消息，然后确认第5 个消息，那么所有10 个消息都被确认。
+-   **Session.DUPS_ACKNOWLEDGE**：该选择只是会话迟钝的确认消息的提交。如果JMS provider 失败，那么可能会导致一些重复的消息。如果是重复的消息，那么JMS provider 必须把消息头的JMSRedelivered 字段设置为true。
+
+## 2.3 消息持久化
+### 2.3.1 AMQ Message Store
+&emsp;&emsp;AMQ Message Store 是ActiveMQ5.0缺省的持久化存储。Message commands 被保存到transactional journal（由rolling data logs 组成）。Messages 被保存到data logs 中，同时被reference store 进行索引以提高存取速度。Date logs由一些单独的data log 文件组成，缺省的文件大小是32M，如果某个消息的大小超过了data log 文件的大小，那么可以修改配置以增加data log 文件的大小。<br>
+&emsp;&emsp;如果某个data log 文件中所有的消息都被成功消费了，那么这个data log 文件将会被标记，以便在下一轮的清理中被删除或者归档。以下是其配置的一个例子：
+```xml
+<brokerbrokerName="broker" persistent="true"useShutdownHook="false">
+  <persistenceAdapter>
+    <amqPersistenceAdapterdirectory="${activemq.base}/data" maxFileLength="32mb"/>
+  </persistenceAdapter>
+</broker>
+```
+### 2.3.2 Kaha Persistence
+&emsp;&emsp;Kaha Persistence 是一个专门针对消息持久化的解决方案。它对典型的消息使用模式进行了优化。在Kaha 中，数据被追加到data logs 中。当不再需要log文件中的数据的时候，log 文件会被丢弃。以下是其配置的一个例子：
+```xml
+<brokerbrokerName="broker" persistent="true"useShutdownHook="false">
+  <persistenceAdapter>
+    <kahaPersistenceAdapterdirectory="activemq-data" maxDataFileLength="33554432"/>
+  </persistenceAdapter>
+</broker>
+```
+### 2.3.3 JDBC Persistence
+&emsp;&emsp;目前支持的数据库有Apache Derby,Axion, DB2, HSQL, Informix, MaxDB, MySQL, Oracle,Postgresql, SQLServer, Sybase。如果你使用的数据库不被支持，那么可以调整StatementProvider来保证使用正确的SQL 方言（flavour of SQL）。通常绝大多数数据库支持以下adaptor：
+* org.activemq.store.jdbc.adapter.BlobJDBCAdapter
+* org.activemq.store.jdbc.adapter.BytesJDBCAdapter
+* org.activemq.store.jdbc.adapter.DefaultJDBCAdapter
+* org.activemq.store.jdbc.adapter.ImageJDBCAdapter
+
+也可以在配置文件中直接指定JDBC adaptor，例如：
+```xml
+<jdbcPersistenceAdapter adapterClass="org.apache.activemq.store.jdbc.adapter.ImageBasedJDBCAdaptor"/>
+```
+```xml
+<persistence>
+  <jdbcPersistence dataSourceRef="mysql-ds"/>
+</persistence>
+<bean id="mysql-ds"class="org.apache.commons.dbcp.BasicDataSource"destroy-method="close">
+  <property name="driverClassName"value="com.mysql.jdbc.Driver"/>
+  <property name="url" value="jdbc:mysql://localhost/activemq?relaxAutoCommit=true"/>
+  <propertyname="username" value="activemq"/>
+  <property name="password"value="activemq"/>
+  <propertyname="poolPreparedStatements" value="true"/>
+</bean>
+```
+需要注意的是，如果使用MySQL，那么需要设置relaxAutoCommit 标志为true。<br>
+**查看原文详细信息**：https://blog.csdn.net/boonya/article/details/51074478
 
 # 三、ActiveMQ的安装
 
