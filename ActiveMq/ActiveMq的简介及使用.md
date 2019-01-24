@@ -26,7 +26,7 @@ JMS（Java Message Service）定义了五种不同的消息正文格式，以及
 
 # 三、ActiveMQ的安装
 ## 3.1 下载
-进入http://activemq.apache.org/  下载ActiveMQ
+进入http://activemq.apache.org/ 下载ActiveMQ
 <img alt="ActiveMq的简介及使用-a3d12501.png" src="assets/ActiveMq的简介及使用-a3d12501.png" width="" height="" >
 
 ## 3.2 安装
@@ -43,7 +43,7 @@ JMS（Java Message Service）定义了五种不同的消息正文格式，以及
 # 四、ActiveMQ的使用
 ## 4.1 Queue
 ### 4.1.1 添加jar包至工程中
-```xml
+```html
 <properties>
   <activemq.version>5.11.2</activemq.version>
 </properties>
@@ -111,43 +111,43 @@ public void testQueueProducer() throws Exception {
 8. 关闭资源
 ```java
 @Test
-	public void testQueueConsumer() throws Exception {
-		// 第一步：创建一个ConnectionFactory对象。
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.1.168:61616");
-		// 第二步：从ConnectionFactory对象中获得一个Connection对象。
-		Connection connection = connectionFactory.createConnection();
-		// 第三步：开启连接。调用Connection对象的start方法。
-		connection.start();
-		// 第四步：使用Connection对象创建一个Session对象。
-		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		// 第五步：使用Session对象创建一个Destination对象。和发送端保持一致queue，并且队列的名称一致。
-		Queue queue = session.createQueue("test-queue");
-		// 第六步：使用Session对象创建一个Consumer对象。
-		MessageConsumer consumer = session.createConsumer(queue);
-		// 第七步：接收消息。
-		consumer.setMessageListener(new MessageListener() {
+public void testQueueConsumer() throws Exception {
+	// 第一步：创建一个ConnectionFactory对象。
+	ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://192.168.1.168:61616");
+	// 第二步：从ConnectionFactory对象中获得一个Connection对象。
+	Connection connection = connectionFactory.createConnection();
+	// 第三步：开启连接。调用Connection对象的start方法。
+	connection.start();
+	// 第四步：使用Connection对象创建一个Session对象。
+	Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+	// 第五步：使用Session对象创建一个Destination对象。和发送端保持一致queue，并且队列的名称一致。
+	Queue queue = session.createQueue("test-queue");
+	// 第六步：使用Session对象创建一个Consumer对象。
+	MessageConsumer consumer = session.createConsumer(queue);
+	// 第七步：接收消息。
+	consumer.setMessageListener(new MessageListener() {
 
-			@Override
-			public void onMessage(Message message) {
-				try {
-					TextMessage textMessage = (TextMessage) message;
-					String text = null;
-					//取消息的内容
-					text = textMessage.getText();
-					// 第八步：打印消息。
-					System.out.println(text);
-				} catch (JMSException e) {
-					e.printStackTrace();
-				}
+		@Override
+		public void onMessage(Message message) {
+			try {
+				TextMessage textMessage = (TextMessage) message;
+				String text = null;
+				//取消息的内容
+				text = textMessage.getText();
+				// 第八步：打印消息。
+				System.out.println(text);
+			} catch (JMSException e) {
+				e.printStackTrace();
 			}
-		});
-		//等待键盘输入
-		System.in.read();
-		// 第九步：关闭资源
-		consumer.close();
-		session.close();
-		connection.close();
-	}
+		}
+	});
+	//等待键盘输入
+	System.in.read();
+	// 第九步：关闭资源
+	consumer.close();
+	session.close();
+	connection.close();
+}
 ```
 ## 4.2 Topic
 ### 4.2.1 Producer
