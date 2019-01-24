@@ -322,7 +322,7 @@ public void methodName() {
         TextMessage textMessage = session.createTextMessage("要发送的消息！");
       return textMessage;
     }
-  })
+  });
 }
 ```
 ## 5.4 ActiveMq整合Spring接收端的xml文件配置
