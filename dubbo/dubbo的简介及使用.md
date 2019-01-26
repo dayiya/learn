@@ -110,7 +110,7 @@
   <!-- 连接到zookeeper上 -->
   <dubbo:registry protocol="zookeeper" address="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183"/>
   <!--在maven中需要引入服务提供者提供的接口所在的项目的jar包，这样消费者在spring初始化的时候才会对引用的接口初始化bean，其对应的id为类名首字母小写，即可用如下id注入，完成调用-->
-  <dubbo:reference interface="cn.e3mall.service.ItemService" id="itemService" />
+  <dubbo:reference interface="com.baidu.www.service.AppService" id="AppService" />
 </beans>
 ```
 
