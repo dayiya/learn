@@ -171,6 +171,8 @@ failover 逻辑需要自己实现，其本身不能支持故障的自动转移�
 
 2、数据通过异步复制,不保证数据的强一致性
 
+详情请参考：https://www.cnblogs.com/jasontec/p/9699242.html
+
 # 六、Redis 持久化
 * Redis提供了多种不同级别的持久化方式:一种是RDB,另一种是AOF.
 RDB 持久化可以在指定的时间间隔内生成数据集的时间点快照（point-in-time snapshot）。
