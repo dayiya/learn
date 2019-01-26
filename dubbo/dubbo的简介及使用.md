@@ -49,29 +49,29 @@
 ## 3.1 maven中引入dubbo的相关依赖
 ```xml
 <!-- dubbo相关 -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<exclusions>
-				<exclusion><!--除去自带的springjar包以及netty组件-->
-					<groupId>org.springframework</groupId>
-					<artifactId>spring</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.jboss.netty</groupId>
-					<artifactId>netty</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-    <!--zookeeper相关的依赖-->
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.github.sgroschupf</groupId>
-			<artifactId>zkclient</artifactId>
-		</dependency>
+<dependency>
+  <groupId>com.alibaba</groupId>
+  <artifactId>dubbo</artifactId>
+  <exclusions>
+    <exclusion><!--除去自带的springjar包以及netty组件-->
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+    </exclusion>
+    <exclusion>
+      <groupId>org.jboss.netty</groupId>
+      <artifactId>netty</artifactId>
+    </exclusion>
+  </exclusions>
+</dependency>
+<!--zookeeper相关的依赖-->
+<dependency>
+  <groupId>org.apache.zookeeper</groupId>
+  <artifactId>zookeeper</artifactId>
+</dependency>
+<dependency>
+  <groupId>com.github.sgroschupf</groupId>
+  <artifactId>zkclient</artifactId>
+</dependency>
 ```
 
 ## 3.2 在spring的配置文件中添加dubbo的约束，然后使用dubbo:service发布服务
@@ -90,27 +90,27 @@
 
 	<context:component-scan base-package="com.baidu.www"></context:component-scan>
 
-	<!-- 使用dubbo发布服务，以下配置文件为服务提供者的配置文件 -->
-	<!-- 提供方应用信息，用于计算依赖关系 -->
+  <!-- 使用dubbo发布服务，以下配置文件为服务提供者的配置文件 -->
+  <!-- 提供方应用信息，用于计算依赖关系 -->
   <!-- 设置服务发布的名称 -->
-	<dubbo:application name="applicationName" />
+  <dubbo:application name="applicationName" />
   <!-- 设置中介（注册中心）zookeeper  redis-->
-	<dubbo:registry protocol="zookeeper"
-		address="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183" />
-	<!-- 用dubbo协议在20880端口暴露服务 -->
-	<dubbo:protocol name="dubbo" port="20880" />
-	<!-- 声明需要暴露的服务接口 -->
-	<dubbo:service interface="com.baidu.www.service.AppService" ref="appServiceImpl" />
+  <dubbo:registry protocol="zookeeper"
+    address="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183" />
+  <!-- 用dubbo协议在20880端口暴露服务 -->
+  <dubbo:protocol name="dubbo" port="20880" />
+  <!-- 声明需要暴露的服务接口 -->
+  <dubbo:service interface="com.baidu.www.service.AppService" ref="appServiceImpl" />
 
 
 
   <!-- 引用dubbo服务，以下配置文件为消费者的配置文件 -->
   <!-- 设置引用dubbo服务的应用名称 -->
-	<dubbo:application name="useApplicationName"/>
+  <dubbo:application name="useApplicationName"/>
   <!-- 连接到zookeeper上 -->
-	<dubbo:registry protocol="zookeeper" address="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183"/>
+  <dubbo:registry protocol="zookeeper" address="192.168.25.154:2181,192.168.25.154:2182,192.168.25.154:2183"/>
   <!--在maven中需要引入服务提供者提供的接口所在的项目的jar包，这样消费者在spring初始化的时候才会对引用的接口初始化bean，其对应的id为类名首字母小写，即可用如下id注入，完成调用-->
-	<dubbo:reference interface="cn.e3mall.service.ItemService" id="itemService" />
+  <dubbo:reference interface="cn.e3mall.service.ItemService" id="itemService" />
 </beans>
 ```
 
